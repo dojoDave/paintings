@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All the Paintings</title>
+</head>
+<body>
+    <h1>Welcome {{session["first_name"]}}</h1>
+    <h2>Paintings</h2>
+    <a href="/painting/create">Add a Painting</a> |
+    <a href="/logout">Logout</a>
+    <br><br>
+    <table width="500" border="1">
+        <tr>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Edit/Delete</th>
+        </tr>  
+        {% for p in paintings %}                 
+        <tr>             
+            <td width="25%">
+                <a href="/painting/view/{{p['paintings.id']}}">
+                    {{p["title"]}}
+                </a>
+            </td>
+            <td width="35%">
+                by {{p["first_name"]}} {{p["last_name"]}}
+            </td>
+            <td width="40%">
+                {% if session["user_id"] == p["user_id"] %}
+                <a href="/painting/edit/{{p['paintings.id']}}">edit</a> |
+                <a href="/painting/delete/{{p['paintings.id']}}">delete</a>
+                {% endif %}
+            </td>           
+        </tr>
+        {% endfor %}       
+    </table>
+    <h2>Purchased Paintings</h2>
+    <table width="500" border="1">
+        <tr>
+            <th>Title</th>
+            <th>Artist</th>
+        </tr>  
+        {% for p in purchpaintings %}                 
+        <tr>             
+            <td width="25%">
+                <a href="/painting/view/{{p['id']}}">
+                    {{p["title"]}}
+                </a>
+            </td>
+            <td width="35%">
+                by {{p["first_name"]}} {{p["last_name"]}}
+            </td>        
+        </tr>
+        {% endfor %}  
+    </table>
+</body>
+</html>

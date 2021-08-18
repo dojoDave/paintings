@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painting Info</title>
+</head>
+<body>
+    <h1>Painting Info</h1>
+    <a href="/paintings">Paintings</a> |
+    <a href="/painting/create">Add a Painting</a> |
+    <a href="/logout">Logout</a>
+    
+    <h2>{{painting[0]["title"]}}</h2>
+    <table width="500" border="1">           
+        <tr>             
+            <td>
+                Painted by: {{painting[0]["first_name"]}} {{painting[0]["last_name"]}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description:<br><br>
+                {{painting[0]["description"]}}
+            </td>            
+        </tr>
+            <td>
+                Price: ${{painting[0]["price"]}}
+            </td>             
+        </tr>
+        <tr>
+            <td>
+                {% if num_purchased|length > 0 %}
+                    Number Purchased: {{num_purchased[0]["total"]}}
+                {% else %}
+                    Number Purchased: 0
+                {% endif %}
+            </td>
+        </tr>
+    </table><br><br>
+    {% if num_purchased|length > 0 and num_purchased[0]["total"] >= painting[0]["quantity"]  %}
+        Sold Out
+    {% else %}
+        <a href="/painting/buy/{{painting[0]['paintings.id']}}">Buy</a>    
+    {% endif %}
+    
+</body>
+</html>
